@@ -6,376 +6,192 @@
 <title>⚽ محلل المباريات الذكي</title>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:      #070b11;
-  --surf:    #0d1420;
-  --card:    #111a28;
-  --card2:   #162033;
-  --border:  #1c2d42;
-  --accent:  #00e5b0;
-  --gold:    #f5a623;
-  --red:     #e74c3c;
-  --green:   #00c875;
-  --blue:    #4a9eff;
-  --text:    #ddeeff;
-  --muted:   #4a6580;
-  --muted2:  #2a3d52;
-}
+:root{--bg:#070b11;--surf:#0d1420;--card:#111a28;--card2:#162033;--border:#1c2d42;--accent:#00e5b0;--gold:#f5a623;--red:#e74c3c;--green:#00c875;--blue:#4a9eff;--text:#ddeeff;--muted:#4a6580;--muted2:#2a3d52;}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html{scroll-behavior:smooth;}
-body{
-  font-family:'Tajawal',sans-serif;
-  background:var(--bg); color:var(--text);
-  min-height:100vh; overflow-x:hidden;
-}
-body::before{
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background:
-    radial-gradient(ellipse 70% 40% at 15% 5%,  rgba(0,229,176,.05) 0%,transparent 70%),
-    radial-gradient(ellipse 50% 30% at 85% 90%, rgba(74,158,255,.04) 0%,transparent 70%);
-}
-
-/* ── LAYOUT ── */
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 70% 40% at 15% 5%,rgba(0,229,176,.05) 0%,transparent 70%),radial-gradient(ellipse 50% 30% at 85% 90%,rgba(74,158,255,.04) 0%,transparent 70%);}
 .wrap{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:12px 14px 40px;}
-
-/* ── HEADER ── */
 header{text-align:center;padding:24px 0 18px;border-bottom:1px solid var(--border);margin-bottom:20px;}
 .logo-row{font-size:2.4rem;margin-bottom:6px;}
-header h1{
-  font-size:1.55rem;font-weight:900;
-  background:linear-gradient(135deg,var(--accent),var(--gold));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
+header h1{font-size:1.55rem;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 header p{font-size:.8rem;color:var(--muted);margin-top:4px;}
-.live-dot{
-  display:inline-block;width:7px;height:7px;border-radius:50%;
-  background:var(--green);margin-left:5px;vertical-align:middle;
-  animation:pulse 1.5s infinite;
-}
+.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-left:5px;vertical-align:middle;animation:pulse 1.5s infinite;}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.7);}}
-
-/* ── SECTION LABEL ── */
-.slabel{
-  font-size:.68rem;font-weight:700;letter-spacing:2px;
-  color:var(--accent);text-transform:uppercase;
-  display:flex;align-items:center;gap:8px;margin-bottom:10px;
-}
-.slabel::after{content:'';flex:1;height:1px;background:var(--border);}
-
-/* ── CARD ── */
-.card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:14px;padding:16px;margin-bottom:14px;
-}
-
-/* ── STEP TABS ── */
-.steps{display:flex;gap:0;margin-bottom:18px;border-radius:12px;overflow:hidden;border:1px solid var(--border);}
-.step{
-  flex:1;padding:10px 4px;text-align:center;
-  font-size:.75rem;font-weight:700;color:var(--muted);
-  background:var(--surf);cursor:pointer;transition:.2s;
-  border-left:1px solid var(--border);
-}
+.steps{display:flex;margin-bottom:18px;border-radius:12px;overflow:hidden;border:1px solid var(--border);}
+.step{flex:1;padding:10px 4px;text-align:center;font-size:.75rem;font-weight:700;color:var(--muted);background:var(--surf);transition:.2s;border-left:1px solid var(--border);}
 .step:last-child{border-left:none;}
 .step.active{background:rgba(0,229,176,.1);color:var(--accent);}
-.step .snum{
-  display:block;font-size:1rem;font-weight:900;
-  margin-bottom:2px;
-}
-
-/* ── SEARCH ── */
-.search-wrap{position:relative;margin-bottom:12px;}
-.search-input{
-  width:100%;background:var(--surf);border:1px solid var(--border);
-  border-radius:10px;padding:13px 16px 13px 44px;
-  color:var(--text);font-family:'Tajawal',sans-serif;
-  font-size:1rem;outline:none;transition:.2s;
-  direction:rtl;
-}
-.search-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,229,176,.08);}
-.search-icon{
-  position:absolute;left:14px;top:50%;transform:translateY(-50%);
-  font-size:1.1rem;pointer-events:none;
-}
-.search-btn{
-  width:100%;padding:12px;border-radius:10px;border:none;
-  background:linear-gradient(135deg,var(--accent),#00b88a);
-  color:#070b11;font-family:'Tajawal',sans-serif;
-  font-size:1rem;font-weight:800;cursor:pointer;transition:.2s;
-}
-.search-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,229,176,.2);}
-.search-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
-
-/* ── QUICK LEAGUES ── */
+.step .snum{display:block;font-size:1rem;font-weight:900;margin-bottom:2px;}
+.slabel{font-size:.68rem;font-weight:700;letter-spacing:2px;color:var(--accent);text-transform:uppercase;display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--border);}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:14px;}
 .qleagues{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
-.qleague{
-  padding:6px 12px;border-radius:20px;
-  background:var(--surf);border:1px solid var(--border);
-  font-size:.75rem;font-weight:600;color:var(--muted);
-  cursor:pointer;transition:.15s;
-}
-.qleague:hover,.qleague.sel{
-  border-color:var(--accent);color:var(--accent);
-  background:rgba(0,229,176,.07);
-}
-
-/* ── MATCH LIST ── */
+.qleague{padding:6px 12px;border-radius:20px;background:var(--surf);border:1px solid var(--border);font-size:.75rem;font-weight:600;color:var(--muted);cursor:pointer;transition:.15s;}
+.qleague:hover,.qleague.sel{border-color:var(--accent);color:var(--accent);background:rgba(0,229,176,.07);}
+.date-row{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px;}
+.date-chip{flex-shrink:0;padding:7px 14px;border-radius:20px;background:var(--surf);border:1px solid var(--border);font-size:.78rem;font-weight:600;color:var(--muted);cursor:pointer;transition:.15s;white-space:nowrap;}
+.date-chip:hover,.date-chip.sel{border-color:var(--gold);color:var(--gold);background:rgba(245,166,35,.07);}
+.search-wrap{position:relative;margin-bottom:10px;}
+.search-input{width:100%;background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:12px 16px 12px 44px;color:var(--text);font-family:'Tajawal',sans-serif;font-size:1rem;outline:none;transition:.2s;direction:rtl;}
+.search-input:focus{border-color:var(--accent);}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:1.1rem;pointer-events:none;}
+.search-btn{width:100%;padding:12px;border-radius:10px;border:none;background:linear-gradient(135deg,var(--accent),#00b88a);color:#070b11;font-family:'Tajawal',sans-serif;font-size:1rem;font-weight:800;cursor:pointer;transition:.2s;}
+.search-btn:hover{transform:translateY(-1px);}
+.search-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
 .match-list{display:flex;flex-direction:column;gap:8px;}
-.match-item{
-  background:var(--surf);border:1px solid var(--border);
-  border-radius:12px;padding:12px 14px;cursor:pointer;
-  transition:.15s;display:flex;align-items:center;gap:10px;
-}
+.match-item{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:12px 14px;cursor:pointer;transition:.15s;display:flex;align-items:center;gap:10px;}
 .match-item:hover{border-color:var(--accent);background:rgba(0,229,176,.04);}
 .match-item.selected{border-color:var(--accent);background:rgba(0,229,176,.08);}
 .match-teams{flex:1;}
 .match-name{font-size:.95rem;font-weight:700;margin-bottom:2px;}
 .match-meta{font-size:.72rem;color:var(--muted);}
-.match-status{
-  font-size:.7rem;font-weight:700;padding:3px 8px;
-  border-radius:6px;white-space:nowrap;flex-shrink:0;
-}
+.match-status{font-size:.7rem;font-weight:700;padding:3px 8px;border-radius:6px;white-space:nowrap;flex-shrink:0;}
 .st-live{background:rgba(0,200,117,.15);color:var(--green);}
 .st-sched{background:rgba(74,158,255,.12);color:var(--blue);}
 .st-fin{background:rgba(90,112,144,.15);color:var(--muted);}
-
-/* ── ANALYZE BTN ── */
-.analyze-btn{
-  width:100%;padding:15px;border-radius:12px;border:none;
-  background:linear-gradient(135deg,#f5a623,#e09010);
-  color:#070b11;font-family:'Tajawal',sans-serif;
-  font-size:1.05rem;font-weight:900;cursor:pointer;
-  transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px;
-}
+.analyze-btn{width:100%;padding:15px;border-radius:12px;border:none;background:linear-gradient(135deg,#f5a623,#e09010);color:#070b11;font-family:'Tajawal',sans-serif;font-size:1.05rem;font-weight:900;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px;}
 .analyze-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,166,35,.25);}
 .analyze-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
-
-/* ── LOADING ── */
 .loading{display:none;text-align:center;padding:36px 16px;}
 .loading.show{display:block;}
-.spin{
-  width:44px;height:44px;margin:0 auto 14px;
-  border:3px solid var(--border);border-top-color:var(--accent);
-  border-radius:50%;animation:spin .9s linear infinite;
-}
+.spin{width:44px;height:44px;margin:0 auto 14px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .9s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .loading p{color:var(--muted);font-size:.88rem;margin-top:6px;}
-
-/* ── RESULT ── */
 .result{display:none;animation:fadeUp .4s ease;}
 .result.show{display:block;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
-
-/* Result Header */
-.res-head{
-  background:linear-gradient(135deg,rgba(0,229,176,.07),rgba(245,166,35,.05));
-  border-radius:14px 14px 0 0;
-  border:1px solid var(--border);border-bottom:none;
-  padding:16px 18px;
-}
+.res-head{background:linear-gradient(135deg,rgba(0,229,176,.07),rgba(245,166,35,.05));border-radius:14px 14px 0 0;border:1px solid var(--border);border-bottom:none;padding:16px 18px;}
 .res-teams{font-size:1.15rem;font-weight:900;margin-bottom:4px;}
 .res-meta{font-size:.75rem;color:var(--muted);}
 .conf-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
-.badge{
-  padding:4px 12px;border-radius:20px;
-  font-size:.72rem;font-weight:700;
-}
-.b-high  {background:rgba(0,200,117,.15);color:var(--green);border:1px solid rgba(0,200,117,.25);}
-.b-med   {background:rgba(245,166,35,.15);color:var(--gold); border:1px solid rgba(245,166,35,.25);}
-.b-low   {background:rgba(231,76,60,.15); color:var(--red);  border:1px solid rgba(231,76,60,.25);}
-.b-info  {background:rgba(74,158,255,.12);color:var(--blue); border:1px solid rgba(74,158,255,.2);}
-
-/* Probs */
-.probs-box{
-  border:1px solid var(--border);border-top:none;
-  padding:16px 18px;background:var(--card);
-}
+.badge{padding:4px 12px;border-radius:20px;font-size:.72rem;font-weight:700;}
+.b-high{background:rgba(0,200,117,.15);color:var(--green);border:1px solid rgba(0,200,117,.25);}
+.b-med{background:rgba(245,166,35,.15);color:var(--gold);border:1px solid rgba(245,166,35,.25);}
+.b-low{background:rgba(231,76,60,.15);color:var(--red);border:1px solid rgba(231,76,60,.25);}
+.b-info{background:rgba(74,158,255,.12);color:var(--blue);border:1px solid rgba(74,158,255,.2);}
+.probs-box{border:1px solid var(--border);border-top:none;padding:16px 18px;background:var(--card);}
 .prob-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
 .prob-row:last-child{margin-bottom:0;}
 .prob-lbl{font-size:.82rem;font-weight:700;width:110px;flex-shrink:0;}
 .prob-track{flex:1;background:var(--surf);border-radius:20px;height:9px;overflow:hidden;}
 .prob-fill{height:100%;border-radius:20px;width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1);}
-.pf-win {background:linear-gradient(90deg,var(--green),#00a862);}
+.pf-win{background:linear-gradient(90deg,var(--green),#00a862);}
 .pf-draw{background:linear-gradient(90deg,var(--gold),#d08810);}
 .pf-loss{background:linear-gradient(90deg,var(--red),#c0392b);}
 .prob-pct{font-size:.88rem;font-weight:800;width:38px;flex-shrink:0;text-align:left;}
-
-/* Rec Box */
-.rec-box{
-  border:1px solid var(--border);border-top:none;
-  padding:16px 18px;background:var(--card2);
-}
-.rec-inner{
-  background:var(--surf);border-radius:10px;padding:14px;
-  border-right:3px solid var(--accent);
-}
+.rec-box{border:1px solid var(--border);border-top:none;padding:16px 18px;background:var(--card2);}
+.rec-inner{background:var(--surf);border-radius:10px;padding:14px;border-right:3px solid var(--accent);}
 .rec-lbl{font-size:.68rem;color:var(--accent);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:7px;}
 .rec-text{font-size:.97rem;font-weight:600;line-height:1.75;}
-
-/* Goals Expected */
-.goals-row{
-  border:1px solid var(--border);border-top:none;
-  padding:14px 18px;background:var(--card);
-  display:flex;gap:12px;
-}
-.goal-box{
-  flex:1;background:var(--surf);border-radius:10px;
-  padding:10px;text-align:center;border:1px solid var(--border);
-}
+.goals-row{border:1px solid var(--border);border-top:none;padding:14px 18px;background:var(--card);display:flex;gap:12px;align-items:center;}
+.goal-box{flex:1;background:var(--surf);border-radius:10px;padding:10px;text-align:center;border:1px solid var(--border);}
 .goal-num{font-size:1.6rem;font-weight:900;color:var(--accent);}
 .goal-lbl{font-size:.72rem;color:var(--muted);margin-top:2px;}
-
-/* Analysis */
-.analysis-box{
-  border:1px solid var(--border);border-top:none;
-  padding:16px 18px;background:var(--card2);
-}
-.analysis-text{font-size:.88rem;line-height:2;color:#a8c0d8;white-space:pre-wrap;}
-
-/* Data Grid */
-.data-grid{
-  border:1px solid var(--border);border-top:none;
-  padding:14px 18px;background:var(--card);
-}
+.data-grid{border:1px solid var(--border);border-top:none;padding:14px 18px;background:var(--card);}
 .data-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.data-col-title{
-  font-size:.72rem;font-weight:700;color:var(--gold);
-  margin-bottom:8px;text-align:center;
-}
-.data-stat{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:5px 0;border-bottom:1px solid var(--muted2);
-  font-size:.78rem;
-}
+.data-col-title{font-size:.72rem;font-weight:700;color:var(--gold);margin-bottom:8px;text-align:center;}
+.data-stat{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--muted2);font-size:.78rem;}
 .data-stat:last-child{border-bottom:none;}
 .data-stat .k{color:var(--muted);}
 .data-stat .v{font-weight:700;}
-
-/* Risk */
-.risk-box{
-  border:1px solid var(--border);border-top:none;border-radius:0 0 14px 14px;
-  padding:14px 18px;background:var(--card2);
-}
+.analysis-box{border:1px solid var(--border);border-top:none;padding:16px 18px;background:var(--card2);}
+.analysis-text{font-size:.88rem;line-height:2;color:#a8c0d8;white-space:pre-wrap;}
+.risk-box{border:1px solid var(--border);border-top:none;border-radius:0 0 14px 14px;padding:14px 18px;background:var(--card);}
 .risk-track{display:flex;gap:4px;flex:1;}
 .risk-dot{flex:1;height:7px;border-radius:4px;background:var(--border);}
-.dot-low   {background:var(--green);}
+.dot-low{background:var(--green);}
 .dot-medium{background:var(--gold);}
-.dot-high  {background:var(--red);}
-
-/* Error */
-.err{
-  display:none;background:rgba(231,76,60,.08);
-  border:1px solid rgba(231,76,60,.25);border-radius:10px;
-  padding:14px;color:var(--red);font-size:.88rem;
-  text-align:center;margin-bottom:12px;
-}
+.dot-high{background:var(--red);}
+.err{display:none;background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.25);border-radius:10px;padding:14px;color:var(--red);font-size:.88rem;text-align:center;margin-bottom:12px;}
 .err.show{display:block;}
-
-/* Empty state */
 .empty{text-align:center;padding:30px 16px;color:var(--muted);}
 .empty .eicon{font-size:2.5rem;margin-bottom:10px;}
-.empty p{font-size:.88rem;}
-
-/* Divider */
-hr.dv{border:none;border-top:1px solid var(--border);margin:14px 0;}
-
-@media(max-width:480px){
-  .steps .step span:not(.snum){display:none;}
-  .data-cols{grid-template-columns:1fr;}
-  header h1{font-size:1.3rem;}
-}
+.empty p{font-size:.88rem;line-height:1.8;}
+hr.dv{border:none;border-top:1px solid var(--border);margin:12px 0;}
+@media(max-width:480px){.steps .step span:not(.snum){display:none;}.data-cols{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-<!-- HEADER -->
 <header>
   <div class="logo-row">⚽ <span class="live-dot"></span></div>
   <h1>محلل المباريات الذكي</h1>
   <p>بيانات لحظية حقيقية + تحليل الذكاء الاصطناعي</p>
 </header>
 
-<!-- STEPS -->
 <div class="steps">
   <div class="step active" id="stp1"><span class="snum">1</span>اختر المباراة</div>
   <div class="step"        id="stp2"><span class="snum">2</span>جلب البيانات</div>
   <div class="step"        id="stp3"><span class="snum">3</span>التحليل</div>
 </div>
 
-<!-- STEP 1: SELECT MATCH -->
 <div id="panelSearch">
-
-  <div class="slabel">ابحث عن مباراة</div>
-
-  <!-- Quick leagues -->
-  <div class="qleagues" id="qleagues">
-    <div class="qleague sel" data-id="2"  onclick="quickLeague(this)">🏆 أبطال أوروبا</div>
-    <div class="qleague"     data-id="39" onclick="quickLeague(this)">🏴󠁧󠁢󠁥󠁮󠁧󠁿 إنجلترا</div>
-    <div class="qleague"     data-id="140"onclick="quickLeague(this)">🇪🇸 إسبانيا</div>
-    <div class="qleague"     data-id="78" onclick="quickLeague(this)">🇩🇪 ألمانيا</div>
-    <div class="qleague"     data-id="135"onclick="quickLeague(this)">🇮🇹 إيطاليا</div>
-    <div class="qleague"     data-id="61" onclick="quickLeague(this)">🇫🇷 فرنسا</div>
-    <div class="qleague"     data-id="179"onclick="quickLeague(this)">🇹🇷 تركيا</div>
-    <div class="qleague"     data-id="848"onclick="quickLeague(this)">🇪🇺 الدوري الأوروبي</div>
+  <div class="slabel">اختر الدوري</div>
+  <div class="qleagues">
+    <div class="qleague sel" data-code="CL"  onclick="pickLeague(this)">🏆 أبطال أوروبا</div>
+    <div class="qleague"     data-code="PL"  onclick="pickLeague(this)">🏴󠁧󠁢󠁥󠁮󠁧󠁿 إنجلترا</div>
+    <div class="qleague"     data-code="PD"  onclick="pickLeague(this)">🇪🇸 إسبانيا</div>
+    <div class="qleague"     data-code="BL1" onclick="pickLeague(this)">🇩🇪 ألمانيا</div>
+    <div class="qleague"     data-code="SA"  onclick="pickLeague(this)">🇮🇹 إيطاليا</div>
+    <div class="qleague"     data-code="FL1" onclick="pickLeague(this)">🇫🇷 فرنسا</div>
+    <div class="qleague"     data-code="PPL" onclick="pickLeague(this)">🇵🇹 البرتغال</div>
+    <div class="qleague"     data-code="DED" onclick="pickLeague(this)">🇳🇱 هولندا</div>
+    <div class="qleague"     data-code="ELC" onclick="pickLeague(this)">🏴󠁧󠁢󠁥󠁮󠁧󠁿 تشامبيونشيب</div>
+    <div class="qleague"     data-code="BSA" onclick="pickLeague(this)">🇧🇷 البرازيل</div>
+    <div class="qleague"     data-code="WC"  onclick="pickLeague(this)">🌍 كأس العالم</div>
+    <div class="qleague"     data-code="EC"  onclick="pickLeague(this)">🇪🇺 يورو</div>
   </div>
 
-  <!-- Search by team name -->
+  <div class="slabel">اختر التاريخ</div>
+  <div class="date-row" id="dateRow"></div>
+
+  <hr class="dv">
+  <div class="slabel">أو ابحث باسم الفريق</div>
   <div class="search-wrap">
     <span class="search-icon">🔍</span>
     <input class="search-input" id="teamSearch"
-      placeholder="أو ابحث باسم الفريق... مثال: ريال مدريد"
-      onkeydown="if(event.key==='Enter') searchByTeam()">
+      placeholder="مثال: Arsenal, Real Madrid, Bayern..."
+      onkeydown="if(event.key==='Enter')searchTeam()">
   </div>
-  <button class="search-btn" id="searchBtn" onclick="searchByTeam()">
+  <button class="search-btn" id="searchBtn" onclick="searchTeam()" style="margin-bottom:14px;">
     🔎 بحث بالاسم
   </button>
 
   <hr class="dv">
-
-  <!-- Matches list -->
   <div id="matchesArea">
-    <div class="empty">
-      <div class="eicon">🏟️</div>
-      <p>اختر دوري أو ابحث باسم فريق<br>لعرض المباريات</p>
-    </div>
+    <div class="empty"><div class="eicon">🏟️</div><p>اختر دوري وتاريخ<br>لعرض المباريات</p></div>
   </div>
 
-  <!-- Selected match + analyze -->
   <div id="selectedArea" style="display:none;margin-top:14px;">
     <div class="card" id="selectedCard"></div>
-    <button class="analyze-btn" id="analyzeBtn" onclick="startAnalysis()">
-      ⚡ تحليل المباراة بالذكاء الاصطناعي
+    <button class="analyze-btn" onclick="startAnalysis()">
+      ⚡ تحليل بالذكاء الاصطناعي
     </button>
   </div>
-
 </div>
 
-<!-- LOADING -->
 <div class="loading" id="loading">
   <div class="spin"></div>
-  <p id="loadMsg">جارٍ جلب البيانات اللحظية...</p>
-  <p style="font-size:.75rem;color:var(--muted);margin-top:4px">قد يستغرق 10-20 ثانية</p>
+  <p id="loadMsg">جارٍ جلب البيانات...</p>
+  <p style="font-size:.75rem;color:var(--muted);margin-top:4px;">قد يستغرق 15-25 ثانية</p>
 </div>
 
-<!-- ERROR -->
 <div class="err" id="errBox"></div>
 
-<!-- RESULT -->
 <div class="result" id="resultArea">
-
   <div class="res-head">
     <div class="res-teams" id="rTeams"></div>
     <div class="res-meta"  id="rMeta"></div>
     <div class="conf-row">
       <span class="badge b-info" id="rLeague"></span>
       <span class="badge"        id="rConf"></span>
-      <span class="badge b-info" id="rTime"></span>
+      <span class="badge b-info" id="rRound"></span>
     </div>
   </div>
-
   <div class="probs-box">
-    <div class="slabel" style="margin-bottom:12px">نسب الاحتمالات</div>
+    <div class="slabel" style="margin-bottom:12px;">نسب الاحتمالات</div>
     <div class="prob-row">
       <div class="prob-lbl" id="plHome" style="color:var(--green)">فوز المضيف</div>
       <div class="prob-track"><div class="prob-fill pf-win"  id="bWin"></div></div>
@@ -392,540 +208,216 @@ hr.dv{border:none;border-top:1px solid var(--border);margin:14px 0;}
       <div class="prob-pct"  id="pLoss" style="color:var(--red)">0%</div>
     </div>
   </div>
-
   <div class="rec-box">
     <div class="rec-inner">
       <div class="rec-lbl">🎯 التوصية الرئيسية</div>
       <div class="rec-text" id="rRec"></div>
     </div>
   </div>
-
   <div class="goals-row">
     <div class="goal-box">
       <div class="goal-num" id="gHome">—</div>
       <div class="goal-lbl" id="gHomeLbl">أهداف متوقعة</div>
     </div>
-    <div style="display:flex;align-items:center;color:var(--muted);font-weight:700;font-size:.8rem;">VS</div>
+    <div style="color:var(--muted);font-weight:700;font-size:.8rem;">VS</div>
     <div class="goal-box">
       <div class="goal-num" id="gAway">—</div>
       <div class="goal-lbl" id="gAwayLbl">أهداف متوقعة</div>
     </div>
   </div>
-
   <div class="data-grid">
-    <div class="slabel" style="margin-bottom:12px">البيانات الحقيقية المستخدمة</div>
+    <div class="slabel" style="margin-bottom:12px;">البيانات الحقيقية المستخدمة</div>
     <div class="data-cols">
-      <div>
-        <div class="data-col-title" id="dHomeTitle">المضيف</div>
-        <div id="dHomeStats"></div>
-      </div>
-      <div>
-        <div class="data-col-title" id="dAwayTitle">الضيف</div>
-        <div id="dAwayStats"></div>
-      </div>
+      <div><div class="data-col-title" id="dHomeTitle">المضيف</div><div id="dHomeStats"></div></div>
+      <div><div class="data-col-title" id="dAwayTitle">الضيف</div><div id="dAwayStats"></div></div>
     </div>
   </div>
-
   <div class="analysis-box">
-    <div class="slabel" style="margin-bottom:12px">التحليل التفصيلي</div>
+    <div class="slabel" style="margin-bottom:12px;">التحليل التفصيلي</div>
     <div class="analysis-text" id="rAnalysis"></div>
   </div>
-
   <div class="risk-box">
-    <div class="slabel" style="margin-bottom:10px">مستوى المخاطرة</div>
+    <div class="slabel" style="margin-bottom:10px;">مستوى المخاطرة</div>
     <div style="display:flex;align-items:center;gap:12px;">
       <span style="font-size:.82rem;font-weight:700;flex-shrink:0;">المخاطرة:</span>
       <div class="risk-track" id="riskTrack"></div>
-      <span class="prob-pct" id="riskLbl" style="width:auto;"></span>
+      <span id="riskLbl" style="font-size:.82rem;font-weight:700;flex-shrink:0;"></span>
     </div>
-    <div style="margin-top:12px;text-align:center;">
-      <button onclick="resetAll()" style="
-        background:var(--surf);border:1px solid var(--border);
-        border-radius:8px;padding:8px 20px;
-        color:var(--muted);font-family:'Tajawal',sans-serif;
-        font-size:.85rem;cursor:pointer;">
+    <div style="margin-top:14px;text-align:center;">
+      <button onclick="resetAll()" style="background:var(--surf);border:1px solid var(--border);border-radius:8px;padding:8px 20px;color:var(--muted);font-family:'Tajawal',sans-serif;font-size:.85rem;cursor:pointer;">
         🔄 تحليل مباراة أخرى
       </button>
     </div>
   </div>
+</div>
 
-</div><!-- /result -->
-
-</div><!-- /wrap -->
-
+</div>
 <script>
-// ══════════════════════════════════════════════
-//  CONFIG
-// ══════════════════════════════════════════════
-const FBKEY = '5b62d0668d27d38ad48bd0f7d5706e98'
-const FBBASE = 'https://v3.football.api-sports.io'
+const FDKEY='782a8cf2414f4758b280fb61543db01c', FDBASE='https://api.football-data.org/v4';
+let selLeague='CL', selDate=getToday(), selMatch=null;
 
-// ══════════════════════════════════════════════
-//  STATE
-// ══════════════════════════════════════════════
-let selLeagueId  = 2
-let selMatch     = null
-let selSeason    = new Date().getFullYear()
+window.addEventListener('load',()=>{ buildDateChips(); loadMatches(); });
 
-// ══════════════════════════════════════════════
-//  FB API HELPER
-// ══════════════════════════════════════════════
-async function fbGet(path){
-  const r = await fetch(FBBASE + path, {
-    headers:{ 'x-apisports-key': FBKEY }
-  })
-  if(!r.ok) throw new Error('API error ' + r.status)
-  const d = await r.json()
-  if(d.errors && Object.keys(d.errors).length)
-    throw new Error(JSON.stringify(d.errors))
-  return d.response
+function buildDateChips(){
+  const row=document.getElementById('dateRow'); row.innerHTML='';
+  const labels={'-2':'◀◀ أمس الأول','-1':'◀ أمس','0':'📅 اليوم','1':'غداً ▶','2':'بعد غد ▶▶'};
+  for(let i=-2;i<=2;i++){
+    const d=addDays(getToday(),i), chip=document.createElement('div');
+    chip.className='date-chip'+(i===0?' sel':'');
+    chip.textContent=labels[i]; chip.dataset.date=d;
+    chip.onclick=()=>{ document.querySelectorAll('.date-chip').forEach(c=>c.classList.remove('sel')); chip.classList.add('sel'); selDate=d; loadMatches(); };
+    row.appendChild(chip);
+  }
 }
 
-// ══════════════════════════════════════════════
-//  QUICK LEAGUE
-// ══════════════════════════════════════════════
-async function quickLeague(el){
-  document.querySelectorAll('.qleague').forEach(e=>e.classList.remove('sel'))
-  el.classList.add('sel')
-  selLeagueId = +el.dataset.id
-  document.getElementById('teamSearch').value = ''
-  await loadLeagueFixtures(selLeagueId)
-}
+function pickLeague(el){ document.querySelectorAll('.qleague').forEach(e=>e.classList.remove('sel')); el.classList.add('sel'); selLeague=el.dataset.code; document.getElementById('teamSearch').value=''; loadMatches(); }
 
-async function loadLeagueFixtures(lid){
-  showErr('')
-  setMatchesArea('<div class="loading show" style="padding:20px"><div class="spin"></div><p style="color:var(--muted);font-size:.85rem;margin-top:8px">جارٍ جلب المباريات...</p></div>')
+async function loadMatches(){
+  showErr(''); setArea('<div class="loading show" style="padding:20px"><div class="spin"></div><p style="color:var(--muted);font-size:.85rem;margin-top:8px">جارٍ جلب مباريات '+selDate+'...</p></div>');
   try{
-    // جلب المباريات القادمة أو الجارية أو المنتهية اليوم
-    const today = getToday()
-    let fixtures = await fbGet(`/fixtures?league=${lid}&season=${selSeason}&from=${today}&to=${addDays(today,3)}`)
-    if(!fixtures.length){
-      // إذا لا يوجد قادمة، جلب آخر المنتهية
-      fixtures = await fbGet(`/fixtures?league=${lid}&season=${selSeason}&last=10`)
-    }
-    renderMatches(fixtures)
-  }catch(e){
-    setMatchesArea('<div class="empty"><div class="eicon">⚠️</div><p>تعذّر جلب المباريات<br>' + e.message + '</p></div>')
-  }
+    let data=await fdGet(`/competitions/${selLeague}/matches?dateFrom=${selDate}&dateTo=${selDate}`);
+    let matches=data.matches||[];
+    if(!matches.length){ data=await fdGet(`/competitions/${selLeague}/matches?dateFrom=${addDays(selDate,-3)}&dateTo=${addDays(selDate,4)}`); matches=data.matches||[]; }
+    if(!matches.length){ setArea('<div class="empty"><div class="eicon">📭</div><p>لا توجد مباريات في هذا التاريخ<br><small>جرب تاريخاً آخر أو دورياً آخر</small></p></div>'); return; }
+    renderMatches(matches);
+  }catch(e){ setArea('<div class="empty"><div class="eicon">⚠️</div><p>'+e.message+'</p></div>'); }
 }
 
-// ══════════════════════════════════════════════
-//  SEARCH BY TEAM
-// ══════════════════════════════════════════════
-async function searchByTeam(){
-  const q = document.getElementById('teamSearch').value.trim()
-  if(!q){ showErr('أدخل اسم الفريق أولاً'); return; }
-  showErr('')
-  document.getElementById('searchBtn').disabled = true
-  setMatchesArea('<div class="loading show" style="padding:20px"><div class="spin"></div><p style="color:var(--muted);font-size:.85rem;margin-top:8px">جارٍ البحث...</p></div>')
+async function searchTeam(){
+  const q=document.getElementById('teamSearch').value.trim();
+  if(!q){ showErr('أدخل اسم الفريق'); return; }
+  showErr(''); document.getElementById('searchBtn').disabled=true;
+  setArea('<div class="loading show" style="padding:20px"><div class="spin"></div><p style="color:var(--muted);font-size:.85rem;margin-top:8px">جارٍ البحث...</p></div>');
   try{
-    // ابحث عن الفريق أولاً
-    const teams = await fbGet(`/teams?search=${encodeURIComponent(q)}`)
-    if(!teams.length){ setMatchesArea('<div class="empty"><div class="eicon">🔍</div><p>لم يُعثر على الفريق</p></div>'); return; }
-    const teamId = teams[0].team.id
-    const today  = getToday()
-    let fixtures = await fbGet(`/fixtures?team=${teamId}&season=${selSeason}&from=${today}&to=${addDays(today,7)}`)
-    if(!fixtures.length)
-      fixtures = await fbGet(`/fixtures?team=${teamId}&season=${selSeason}&last=5`)
-    renderMatches(fixtures)
-  }catch(e){
-    setMatchesArea('<div class="empty"><div class="eicon">⚠️</div><p>' + e.message + '</p></div>')
-  }finally{
-    document.getElementById('searchBtn').disabled = false
-  }
+    const data=await fdGet(`/teams?name=${encodeURIComponent(q)}`);
+    const teams=data.teams||[];
+    if(!teams.length){ setArea('<div class="empty"><div class="eicon">🔍</div><p>لم يُعثر على الفريق<br>جرب الاسم بالإنجليزية</p></div>'); return; }
+    const tid=teams[0].id;
+    const mData=await fdGet(`/teams/${tid}/matches?dateFrom=${addDays(selDate,-3)}&dateTo=${addDays(selDate,7)}&limit=15`);
+    const matches=mData.matches||[];
+    if(!matches.length){ setArea('<div class="empty"><div class="eicon">📭</div><p>لا مباريات قريبة لهذا الفريق</p></div>'); return; }
+    renderMatches(matches);
+  }catch(e){ setArea('<div class="empty"><div class="eicon">⚠️</div><p>'+e.message+'</p></div>'); }
+  finally{ document.getElementById('searchBtn').disabled=false; }
 }
 
-// ══════════════════════════════════════════════
-//  RENDER MATCH LIST
-// ══════════════════════════════════════════════
-function renderMatches(fixtures){
-  if(!fixtures.length){
-    setMatchesArea('<div class="empty"><div class="eicon">📭</div><p>لا توجد مباريات في هذه الفترة</p></div>')
-    return
-  }
-  let html = '<div class="slabel" style="margin-bottom:10px">اختر مباراة للتحليل</div><div class="match-list">'
-  fixtures.slice(0,15).forEach((f,i)=>{
-    const s    = f.fixture.status.short
-    const live = ['1H','2H','HT','ET','BT','P'].includes(s)
-    const fin  = ['FT','AET','PEN'].includes(s)
-    const stCls = live?'st-live':fin?'st-fin':'st-sched'
-    const stTxt = live?'🔴 مباشر':fin?`${f.goals.home}-${f.goals.away} | انتهت`:'⏰ قادمة'
-    const dt    = new Date(f.fixture.date).toLocaleString('ar-SY',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})
-    html += `<div class="match-item" onclick="selectMatch(${i})" id="mi${i}" data-idx="${i}">
-      <div class="match-teams">
-        <div class="match-name">${f.teams.home.name} vs ${f.teams.away.name}</div>
-        <div class="match-meta">${f.league.name} • ${dt}</div>
-      </div>
-      <div class="match-status ${stCls}">${stTxt}</div>
-    </div>`
-  })
-  html += '</div>'
-  setMatchesArea(html)
-  window._fixtures = fixtures
+function renderMatches(matches){
+  window._matches=matches;
+  let html='<div class="slabel" style="margin-bottom:10px;">اختر مباراة للتحليل</div><div class="match-list">';
+  matches.forEach((m,i)=>{
+    const s=m.status, isLive=['IN_PLAY','HALFTIME','PAUSED'].includes(s), isFin=['FINISHED','AWARDED'].includes(s);
+    const stCls=isLive?'st-live':isFin?'st-fin':'st-sched';
+    const stTxt=isLive?'🔴 مباشر':isFin?`${m.score?.fullTime?.home??'?'}-${m.score?.fullTime?.away??'?'} انتهت`:'⏰ '+new Date(m.utcDate).toLocaleTimeString('ar',{hour:'2-digit',minute:'2-digit'});
+    const dt=new Date(m.utcDate).toLocaleDateString('ar-SY',{weekday:'short',month:'short',day:'numeric'});
+    html+=`<div class="match-item" id="mi${i}" onclick="pickMatch(${i})"><div class="match-teams"><div class="match-name">${m.homeTeam.name} vs ${m.awayTeam.name}</div><div class="match-meta">${m.competition?.name||''} • ${dt}</div></div><div class="match-status ${stCls}">${stTxt}</div></div>`;
+  });
+  html+='</div>'; setArea(html);
 }
 
-// ══════════════════════════════════════════════
-//  SELECT MATCH
-// ══════════════════════════════════════════════
-function selectMatch(idx){
-  document.querySelectorAll('.match-item').forEach(e=>e.classList.remove('selected'))
-  const el = document.getElementById('mi'+idx)
-  if(el) el.classList.add('selected')
-  selMatch = window._fixtures[idx]
-  const sa = document.getElementById('selectedArea')
-  sa.style.display = 'block'
-  document.getElementById('selectedCard').innerHTML = `
-    <div class="slabel" style="margin-bottom:8px">المباراة المختارة</div>
-    <div style="font-size:1.05rem;font-weight:800;margin-bottom:4px;">
-      ${selMatch.teams.home.name} <span style="color:var(--muted);font-weight:400;">vs</span> ${selMatch.teams.away.name}
-    </div>
-    <div style="font-size:.78rem;color:var(--muted);">
-      ${selMatch.league.name} • ${selMatch.league.country}
-    </div>
-  `
-  sa.scrollIntoView({behavior:'smooth',block:'nearest'})
+function pickMatch(i){
+  document.querySelectorAll('.match-item').forEach(e=>e.classList.remove('selected'));
+  document.getElementById('mi'+i)?.classList.add('selected');
+  selMatch=window._matches[i];
+  const sa=document.getElementById('selectedArea'); sa.style.display='block';
+  document.getElementById('selectedCard').innerHTML=`<div class="slabel" style="margin-bottom:8px;">المباراة المختارة ✓</div><div style="font-size:1.05rem;font-weight:800;margin-bottom:4px;">${selMatch.homeTeam.name} <span style="color:var(--muted);font-weight:400;">vs</span> ${selMatch.awayTeam.name}</div><div style="font-size:.78rem;color:var(--muted);">${selMatch.competition?.name||''} • ${new Date(selMatch.utcDate).toLocaleString('ar-SY',{weekday:'long',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'})}</div>`;
+  sa.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
-// ══════════════════════════════════════════════
-//  START FULL ANALYSIS
-// ══════════════════════════════════════════════
 async function startAnalysis(){
   if(!selMatch){ showErr('اختر مباراة أولاً'); return; }
-
-  setStep(2)
-  document.getElementById('panelSearch').style.display  = 'none'
-  document.getElementById('resultArea').classList.remove('show')
-  showLoad('جارٍ جلب إحصاءات الفريقين...')
-
-  const fid    = selMatch.fixture.id
-  const homeId = selMatch.teams.home.id
-  const awayId = selMatch.teams.away.id
-  const lid    = selMatch.league.id
-  const season = selMatch.league.season || selSeason
-
+  setStep(2); document.getElementById('panelSearch').style.display='none'; document.getElementById('resultArea').classList.remove('show');
+  showLoad('جارٍ جلب إحصاءات الفريقين...');
+  const hId=selMatch.homeTeam.id, aId=selMatch.awayTeam.id, comp=selMatch.competition?.code||selLeague;
   try{
-    // ── جلب كل البيانات بالتوازي ──
-    setLoad('جارٍ جلب آخر 5 مباريات + H2H + ترتيب الدوري...')
-    const [homeForm, awayForm, h2h, standings, fixtureStats] = await Promise.allSettled([
-      fbGet(`/fixtures?team=${homeId}&season=${season}&last=5`),
-      fbGet(`/fixtures?team=${awayId}&season=${season}&last=5`),
-      fbGet(`/fixtures/headtohead?h2h=${homeId}-${awayId}&last=8`),
-      fbGet(`/standings?league=${lid}&season=${season}`),
-      fbGet(`/fixtures/statistics?fixture=${fid}`)
-    ])
-
-    setLoad('جارٍ جلب بيانات اللاعبين والإصابات...')
-    const [homeInj, awayInj, homePlayers, awayPlayers] = await Promise.allSettled([
-      fbGet(`/injuries?team=${homeId}&fixture=${fid}`),
-      fbGet(`/injuries?team=${awayId}&fixture=${fid}`),
-      fbGet(`/players/statistics?team=${homeId}&season=${season}&league=${lid}`),
-      fbGet(`/players/statistics?team=${awayId}&season=${season}&league=${lid}`)
-    ])
-
-    // ── تجميع البيانات ──
-    const data = {
-      fixture:   selMatch,
-      homeForm:  homeForm.value   || [],
-      awayForm:  awayForm.value   || [],
-      h2h:       h2h.value        || [],
-      standings: standings.value  || [],
-      homeInj:   homeInj.value    || [],
-      awayInj:   awayInj.value    || [],
-    }
-
-    setStep(3)
-    setLoad('الذكاء الاصطناعي يحلل البيانات...')
-
-    const result = await callClaude(data)
-    hideLoad()
-    displayResult(data, result)
-
-  }catch(e){
-    hideLoad()
-    showErr('خطأ: ' + e.message)
-    resetUI()
-  }
+    showLoad('جارٍ جلب آخر المباريات + H2H + ترتيب الدوري...');
+    const [hM,aM,stand]=await Promise.allSettled([
+      fdGet(`/teams/${hId}/matches?status=FINISHED&limit=6`),
+      fdGet(`/teams/${aId}/matches?status=FINISHED&limit=6`),
+      fdGet(`/competitions/${comp}/standings`).catch(()=>null)
+    ]);
+    const hMatches=(hM.value?.matches||[]).slice(-5);
+    const aMatches=(aM.value?.matches||[]).slice(-5);
+    // H2H من مباريات المضيف
+    const allHM=hM.value?.matches||[];
+    const h2h=allHM.filter(m=>(m.homeTeam.id===hId&&m.awayTeam.id===aId)||(m.homeTeam.id===aId&&m.awayTeam.id===hId)).slice(0,8);
+    const data={fixture:selMatch,homeMatches:hMatches,awayMatches:aMatches,h2h,standing:stand.value||null};
+    setStep(3); showLoad('الذكاء الاصطناعي يحلل البيانات...');
+    const result=await callClaude(data);
+    hideLoad(); displayResult(data,result);
+  }catch(e){ hideLoad(); showErr('خطأ: '+e.message); resetUI(); }
 }
 
-// ══════════════════════════════════════════════
-//  BUILD PROMPT & CALL CLAUDE
-// ══════════════════════════════════════════════
 async function callClaude(d){
-  const hName = d.fixture.teams.home.name
-  const aName = d.fixture.teams.away.name
+  const hName=d.fixture.homeTeam.name, aName=d.fixture.awayTeam.name;
+  const hId=d.fixture.homeTeam.id, aId=d.fixture.awayTeam.id;
+  const formStr=(ms,tid)=>{ if(!ms.length)return 'غير متوفر'; return ms.map(m=>{ const isH=m.homeTeam.id===tid,gf=isH?m.score?.fullTime?.home:m.score?.fullTime?.away,ga=isH?m.score?.fullTime?.away:m.score?.fullTime?.home,opp=isH?m.awayTeam.name:m.homeTeam.name; if(gf==null)return '?'; return `${gf>ga?'ف':gf===ga?'ت':'خ'}(${gf}-${ga} vs ${opp})`; }).join(' | '); };
+  const st=(ms,tid)=>{ let w=0,dr=0,l=0,gf=0,ga=0; ms.forEach(m=>{ const isH=m.homeTeam.id===tid,sf=isH?m.score?.fullTime?.home:m.score?.fullTime?.away,sa=isH?m.score?.fullTime?.away:m.score?.fullTime?.home; if(sf==null)return; gf+=sf;ga+=sa;if(sf>sa)w++;else if(sf===sa)dr++;else l++; }); return{w,d:dr,l,gf,ga}; };
+  const h2hStr=()=>{ if(!d.h2h.length)return 'لا توجد مواجهات'; let hw=0,aw=0,dr=0; d.h2h.forEach(m=>{ const gh=m.score?.fullTime?.home,ga=m.score?.fullTime?.away; if(gh==null)return; const isH=m.homeTeam.id===hId,hg=isH?gh:ga,ag=isH?ga:gh; if(hg>ag)hw++;else if(hg<ag)aw++;else dr++; }); return `${d.h2h.length} مواجهة | ${hName} فاز ${hw} | تعادل ${dr} | ${aName} فاز ${aw}`; };
+  const standStr=(name)=>{ try{ const g=d.standing?.standings||[]; for(const grp of g){ const t=grp.table?.find(r=>r.team.name===name); if(t)return `المركز ${t.position} | ن${t.points} | ف${t.won} ت${t.draw} خ${t.lost}`; } }catch{} return 'غير متوفر'; };
+  const hSt=st(d.homeMatches,hId), aSt=st(d.awayMatches,aId);
+  const prompt=`أنت محلل كرة قدم احترافي متخصص في التحليل الإحصائي. حلل المباراة التالية وأعطني النتيجة بصيغة JSON فقط بدون أي نص خارجه.
 
-  // ── ملخص آخر 5 مباريات ──
-  const formSummary = (games, teamId) => {
-    if(!games.length) return 'غير متوفر'
-    return games.map(g=>{
-      const isHome = g.teams.home.id === teamId
-      const gf = isHome ? g.goals.home : g.goals.away
-      const ga = isHome ? g.goals.away : g.goals.home
-      const opp = isHome ? g.teams.away.name : g.teams.home.name
-      const res = gf > ga ? 'ف' : gf === ga ? 'ت' : 'خ'
-      return `${res}(${gf}-${ga} vs ${opp})`
-    }).join(' | ')
-  }
+البطولة: ${d.fixture.competition?.name}
+المضيف: ${hName} | الضيف: ${aName}
+الموعد: ${new Date(d.fixture.utcDate).toLocaleString('ar')}
 
-  // ── ترتيب الدوري ──
-  const getStanding = (standings, teamId) => {
-    try{
-      const groups = standings[0]
-      for(const grp of groups){
-        const found = grp.find(t => t.team.id === teamId)
-        if(found) return `المركز ${found.rank} | ف${found.all.win} ت${found.all.draw} خ${found.all.lose} | نقاط:${found.points}`
-      }
-    }catch{}
-    return 'غير متوفر'
-  }
+${hName} آخر 5: ${formStr(d.homeMatches,hId)}
+إحصاء: ف${hSt.w} ت${hSt.d} خ${hSt.l} | سجّل:${hSt.gf} استقبل:${hSt.ga}
+الترتيب: ${standStr(hName)}
 
-  // ── H2H ──
-  const h2hSummary = () => {
-    if(!d.h2h.length) return 'لا توجد مواجهات سابقة'
-    let hW=0, aW=0, dr=0
-    const hId = d.fixture.teams.home.id
-    d.h2h.forEach(g=>{
-      const gh = g.goals.home, ga = g.goals.away
-      if(g.teams.home.id === hId){ if(gh>ga)hW++; else if(gh<ga)aW++; else dr++ }
-      else { if(ga>gh)hW++; else if(ga<gh)aW++; else dr++ }
-    })
-    const last = d.h2h[0]
-    return `${d.h2h.length} مواجهة | ${hName} فاز ${hW} | تعادل ${dr} | ${aName} فاز ${aW} | آخر مواجهة: ${last.goals.home}-${last.goals.away}`
-  }
+${aName} آخر 5: ${formStr(d.awayMatches,aId)}
+إحصاء: ف${aSt.w} ت${aSt.d} خ${aSt.l} | سجّل:${aSt.gf} استقبل:${aSt.ga}
+الترتيب: ${standStr(aName)}
 
-  // ── الإصابات ──
-  const injSummary = (inj) => {
-    if(!inj.length) return 'لا غيابات مسجّلة'
-    return inj.slice(0,4).map(i=>`${i.player.name} (${i.injury.type})`).join('، ')
-  }
+H2H: ${h2hStr()}
 
-  // ── إحصاءات مجمّعة ──
-  const calcStats = (games, teamId) => {
-    if(!games.length) return {gf:0,ga:0,w:0,d:0,l:0}
-    let gf=0,ga=0,w=0,dr=0,l=0
-    games.forEach(g=>{
-      const isH = g.teams.home.id === teamId
-      const sf = isH ? g.goals.home : g.goals.away
-      const sa = isH ? g.goals.away : g.goals.home
-      gf+=sf; ga+=sa
-      if(sf>sa)w++; else if(sf===sa)dr++; else l++
-    })
-    return {gf,ga,w,d:dr,l}
-  }
+حلل بعمق: قوة الهجوم/الدفاع، الزخم، ميزة الملعب، ترتيب الدوري، Poisson لتوقع الأهداف، H2H.
 
-  const hSt  = calcStats(d.homeForm, d.fixture.teams.home.id)
-  const aSt  = calcStats(d.awayForm, d.fixture.teams.away.id)
-  const hStd = getStanding(d.standings, d.fixture.teams.home.id)
-  const aStd = getStanding(d.standings, d.fixture.teams.away.id)
-
-  const prompt = `أنت محلل كرة قدم احترافي متخصص في التحليل الإحصائي والتنبؤ بنتائج المباريات.
-حلل المباراة التالية وأعطني تحليلاً دقيقاً بصيغة JSON فقط بدون أي نص خارجه.
-
-━━━ بيانات المباراة ━━━
-البطولة: ${d.fixture.league.name} (${d.fixture.league.country})
-المضيف: ${hName}
-الضيف: ${aName}
-الموعد: ${new Date(d.fixture.fixture.date).toLocaleString('ar')}
-
-━━━ الشكل الأخير (آخر 5 مباريات) ━━━
-${hName}: ${formSummary(d.homeForm, d.fixture.teams.home.id)}
-إحصاءات: فاز ${hSt.w} | تعادل ${hSt.d} | خسر ${hSt.l} | سجّل ${hSt.gf} | استقبل ${hSt.ga}
-
-${aName}: ${formSummary(d.awayForm, d.fixture.teams.away.id)}
-إحصاءات: فاز ${aSt.w} | تعادل ${aSt.d} | خسر ${aSt.l} | سجّل ${aSt.gf} | استقبل ${aSt.ga}
-
-━━━ ترتيب الدوري ━━━
-${hName}: ${hStd}
-${aName}: ${aStd}
-
-━━━ المواجهات المباشرة H2H ━━━
-${h2hSummary()}
-
-━━━ الغيابات والإصابات ━━━
-${hName}: ${injSummary(d.homeInj)}
-${aName}: ${injSummary(d.awayInj)}
-
-━━━ المطلوب ━━━
-قم بتحليل عميق يشمل:
-1. قوة الهجوم والدفاع لكل فريق بناءً على الأرقام الحقيقية
-2. الزخم الحالي وتأثيره
-3. ميزة الملعب (Home advantage تاريخياً 60-65% أفضلية)
-4. تأثير الغيابات المسجّلة
-5. نموذج Poisson لتوقع الأهداف (معدل أهداف كل فريق)
-6. تحليل H2H والأنماط التاريخية
-7. الحكم النهائي والتوصية
-
-أعطني النتيجة بهذا JSON بالضبط (أرقام فقط بدون % في الاحتمالات):
-{
-  "probHomeWin": <0-100>,
-  "probDraw": <0-100>,
-  "probAwayWin": <0-100>,
-  "expectedHomeGoals": <رقم عشري>,
-  "expectedAwayGoals": <رقم عشري>,
-  "recommendation": "<التوصية الرئيسية — جملة واحدة واضحة>",
-  "confidence": "<high|medium|low>",
-  "confidenceLabel": "<مثال: ثقة 74%>",
-  "risk": "<low|medium|high>",
-  "homeFormRating": <1-10>,
-  "awayFormRating": <1-10>,
-  "analysis": "<تحليل 6-8 أسطر بالعربية يشرح المنطق والأدلة الإحصائية>"
-}`
-
-  const resp = await fetch('https://api.anthropic.com/v1/messages',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({
-      model:'claude-sonnet-4-20250514',
-      max_tokens:1200,
-      messages:[{role:'user',content:prompt}]
-    })
-  })
-
-  if(!resp.ok){
-    const e = await resp.json().catch(()=>({}))
-    throw new Error(e.error?.message || 'Claude API error')
-  }
-
-  const res  = await resp.json()
-  const text = res.content?.[0]?.text || ''
-  const clean= text.replace(/```json|```/g,'').trim()
-
-  try{ return JSON.parse(clean) }
-  catch{
-    const m = clean.match(/\{[\s\S]*\}/)
-    if(m) return JSON.parse(m[0])
-    throw new Error('تعذّر قراءة نتيجة التحليل')
-  }
+JSON المطلوب:
+{"probHomeWin":<0-100>,"probDraw":<0-100>,"probAwayWin":<0-100>,"expectedHomeGoals":<عشري>,"expectedAwayGoals":<عشري>,"recommendation":"<توصية واضحة>","confidence":"<high|medium|low>","confidenceLabel":"<ثقة XX%>","risk":"<low|medium|high>","homeFormRating":<1-10>,"awayFormRating":<1-10>,"analysis":"<تحليل 6-8 أسطر بالعربية>"}`;
+  const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1200,messages:[{role:'user',content:prompt}]})});
+  if(!resp.ok){ const e=await resp.json().catch(()=>({})); throw new Error(e.error?.message||'Claude API error'); }
+  const res=await resp.json(), text=res.content?.[0]?.text||'', clean=text.replace(/```json|```/g,'').trim();
+  try{ return JSON.parse(clean); }catch{ const m=clean.match(/\{[\s\S]*\}/); if(m)return JSON.parse(m[0]); throw new Error('تعذّر قراءة نتيجة التحليل'); }
 }
 
-// ══════════════════════════════════════════════
-//  DISPLAY RESULT
-// ══════════════════════════════════════════════
-function displayResult(d, r){
-  const hName = d.fixture.teams.home.name
-  const aName = d.fixture.teams.away.name
-
-  // Normalize
-  const tot = r.probHomeWin + r.probDraw + r.probAwayWin
-  const pW  = Math.round(r.probHomeWin / tot * 100)
-  const pD  = Math.round(r.probDraw    / tot * 100)
-  const pL  = 100 - pW - pD
-
-  // Header
-  document.getElementById('rTeams').textContent  = `${hName}  vs  ${aName}`
-  document.getElementById('rMeta').textContent   = new Date(d.fixture.fixture.date).toLocaleString('ar-SY',{weekday:'long',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'})
-  document.getElementById('rLeague').textContent = d.fixture.league.name
-
-  const confEl = document.getElementById('rConf')
-  confEl.textContent = r.confidenceLabel || (r.confidence==='high'?'ثقة عالية':r.confidence==='medium'?'ثقة متوسطة':'ثقة منخفضة')
-  confEl.className   = 'badge ' + (r.confidence==='high'?'b-high':r.confidence==='medium'?'b-med':'b-low')
-
-  document.getElementById('rTime').textContent = d.fixture.league.round || d.fixture.league.season
-
-  // Labels
-  document.getElementById('plHome').textContent = `فوز ${hName}`
-  document.getElementById('plAway').textContent = `فوز ${aName}`
-
-  // Bars animate
-  setTimeout(()=>{
-    document.getElementById('bWin').style.width  = pW+'%'
-    document.getElementById('bDraw').style.width = pD+'%'
-    document.getElementById('bLoss').style.width = pL+'%'
-    document.getElementById('pWin').textContent  = pW+'%'
-    document.getElementById('pDraw').textContent = pD+'%'
-    document.getElementById('pLoss').textContent = pL+'%'
-  },200)
-
-  // Recommendation
-  document.getElementById('rRec').textContent = r.recommendation
-
-  // Expected goals
-  document.getElementById('gHome').textContent    = r.expectedHomeGoals?.toFixed(1) ?? '—'
-  document.getElementById('gAway').textContent    = r.expectedAwayGoals?.toFixed(1) ?? '—'
-  document.getElementById('gHomeLbl').textContent = `${hName} (متوقع)`
-  document.getElementById('gAwayLbl').textContent = `${aName} (متوقع)`
-
-  // Data stats
-  const hSt = calcStats(d.homeForm, d.fixture.teams.home.id)
-  const aSt = calcStats(d.awayForm, d.fixture.teams.away.id)
-  document.getElementById('dHomeTitle').textContent = hName
-  document.getElementById('dAwayTitle').textContent = aName
-  document.getElementById('dHomeStats').innerHTML   = statsHTML(hSt, d.homeInj.length, r.homeFormRating)
-  document.getElementById('dAwayStats').innerHTML   = statsHTML(aSt, d.awayInj.length, r.awayFormRating)
-
-  // Analysis
-  document.getElementById('rAnalysis').textContent = r.analysis
-
-  // Risk
-  const rl  = r.risk || 'medium'
-  const rc  = rl==='low'?2:rl==='medium'?3:5
-  let rHTML = ''
-  for(let i=0;i<5;i++) rHTML+=`<div class="risk-dot ${i<rc?'dot-'+rl:''}"></div>`
-  document.getElementById('riskTrack').innerHTML = rHTML
-  const rTxt = document.getElementById('riskLbl')
-  rTxt.textContent = rl==='low'?'منخفضة':rl==='medium'?'متوسطة':'مرتفعة'
-  rTxt.style.color = rl==='low'?'var(--green)':rl==='medium'?'var(--gold)':'var(--red)'
-
-  // Show
-  document.getElementById('resultArea').classList.add('show')
-  document.getElementById('resultArea').scrollIntoView({behavior:'smooth',block:'start'})
+function displayResult(d,r){
+  const hName=d.fixture.homeTeam.name, aName=d.fixture.awayTeam.name;
+  const tot=(r.probHomeWin+r.probDraw+r.probAwayWin)||100;
+  const pW=Math.round(r.probHomeWin/tot*100), pD=Math.round(r.probDraw/tot*100), pL=100-pW-pD;
+  document.getElementById('rTeams').textContent=`${hName}  vs  ${aName}`;
+  document.getElementById('rMeta').textContent=new Date(d.fixture.utcDate).toLocaleString('ar-SY',{weekday:'long',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'});
+  document.getElementById('rLeague').textContent=d.fixture.competition?.name||'';
+  document.getElementById('rRound').textContent=d.fixture.matchday?`الجولة ${d.fixture.matchday}`:'كأس';
+  const ce=document.getElementById('rConf'); ce.textContent=r.confidenceLabel||(r.confidence==='high'?'ثقة عالية':r.confidence==='medium'?'ثقة متوسطة':'ثقة منخفضة'); ce.className='badge '+(r.confidence==='high'?'b-high':r.confidence==='medium'?'b-med':'b-low');
+  document.getElementById('plHome').textContent=`فوز ${hName}`; document.getElementById('plAway').textContent=`فوز ${aName}`;
+  setTimeout(()=>{ document.getElementById('bWin').style.width=pW+'%'; document.getElementById('bDraw').style.width=pD+'%'; document.getElementById('bLoss').style.width=pL+'%'; document.getElementById('pWin').textContent=pW+'%'; document.getElementById('pDraw').textContent=pD+'%'; document.getElementById('pLoss').textContent=pL+'%'; },200);
+  document.getElementById('rRec').textContent=r.recommendation;
+  document.getElementById('gHome').textContent=r.expectedHomeGoals?.toFixed(1)??'—'; document.getElementById('gAway').textContent=r.expectedAwayGoals?.toFixed(1)??'—';
+  document.getElementById('gHomeLbl').textContent=`${hName} متوقع`; document.getElementById('gAwayLbl').textContent=`${aName} متوقع`;
+  const hSt=calcSt(d.homeMatches,d.fixture.homeTeam.id), aSt=calcSt(d.awayMatches,d.fixture.awayTeam.id);
+  document.getElementById('dHomeTitle').textContent=hName; document.getElementById('dAwayTitle').textContent=aName;
+  document.getElementById('dHomeStats').innerHTML=stHTML(hSt,r.homeFormRating); document.getElementById('dAwayStats').innerHTML=stHTML(aSt,r.awayFormRating);
+  document.getElementById('rAnalysis').textContent=r.analysis;
+  const rl=r.risk||'medium', rc=rl==='low'?2:rl==='medium'?3:5; let rH='';
+  for(let i=0;i<5;i++) rH+=`<div class="risk-dot ${i<rc?'dot-'+rl:''}"></div>`;
+  document.getElementById('riskTrack').innerHTML=rH;
+  const rt=document.getElementById('riskLbl'); rt.textContent=rl==='low'?'منخفضة':rl==='medium'?'متوسطة':'مرتفعة'; rt.style.color=rl==='low'?'var(--green)':rl==='medium'?'var(--gold)':'var(--red)';
+  document.getElementById('resultArea').classList.add('show'); document.getElementById('resultArea').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-function statsHTML(st, injCount, rating){
-  return `
-    <div class="data-stat"><span class="k">انتصارات</span><span class="v" style="color:var(--green)">${st.w}</span></div>
-    <div class="data-stat"><span class="k">تعادلات</span><span class="v" style="color:var(--gold)">${st.d}</span></div>
-    <div class="data-stat"><span class="k">خسائر</span><span class="v" style="color:var(--red)">${st.l}</span></div>
-    <div class="data-stat"><span class="k">أهداف سجّل</span><span class="v">${st.gf}</span></div>
-    <div class="data-stat"><span class="k">أهداف استقبل</span><span class="v">${st.ga}</span></div>
-    <div class="data-stat"><span class="k">غيابات</span><span class="v" style="color:${injCount>0?'var(--red)':'var(--green)'}">${injCount}</span></div>
-    <div class="data-stat"><span class="k">تقييم الشكل</span><span class="v" style="color:var(--accent)">${rating||'—'}/10</span></div>
-  `
-}
-
-function calcStats(games, teamId){
-  if(!games.length) return{gf:0,ga:0,w:0,d:0,l:0}
-  let gf=0,ga=0,w=0,dr=0,l=0
-  games.forEach(g=>{
-    const isH = g.teams.home.id===teamId
-    const sf  = isH?g.goals.home:g.goals.away
-    const sa  = isH?g.goals.away:g.goals.home
-    gf+=sf; ga+=sa
-    if(sf>sa)w++; else if(sf===sa)dr++; else l++
-  })
-  return{gf,ga,w,d:dr,l}
-}
-
-// ══════════════════════════════════════════════
-//  UI HELPERS
-// ══════════════════════════════════════════════
-function setMatchesArea(html){ document.getElementById('matchesArea').innerHTML = html }
-function setStep(n){ [1,2,3].forEach(i=>{ document.getElementById('stp'+i).classList.toggle('active',i<=n) }) }
-function showLoad(msg){ document.getElementById('loading').classList.add('show'); setLoad(msg) }
-function setLoad(msg){ document.getElementById('loadMsg').textContent = msg }
-function hideLoad(){ document.getElementById('loading').classList.remove('show') }
-function showErr(msg){ const e=document.getElementById('errBox'); e.textContent=msg?'⚠️ '+msg:''; e.classList.toggle('show',!!msg) }
-function resetUI(){ document.getElementById('panelSearch').style.display='block' }
-
-function resetAll(){
-  selMatch = null
-  document.getElementById('resultArea').classList.remove('show')
-  document.getElementById('panelSearch').style.display = 'block'
-  document.getElementById('selectedArea').style.display = 'none'
-  document.querySelectorAll('.match-item').forEach(e=>e.classList.remove('selected'))
-  setStep(1)
-  window.scrollTo({top:0,behavior:'smooth'})
-}
-
-function getToday(){ return new Date().toISOString().split('T')[0] }
-function addDays(d,n){ const dt=new Date(d); dt.setDate(dt.getDate()+n); return dt.toISOString().split('T')[0] }
-
-// ══════════════════════════════════════════════
-//  INIT — load default league
-// ══════════════════════════════════════════════
-window.addEventListener('load', ()=>{
-  loadLeagueFixtures(selLeagueId)
-})
+function calcSt(ms,tid){ let w=0,d=0,l=0,gf=0,ga=0; ms.forEach(m=>{ const isH=m.homeTeam.id===tid,sf=isH?m.score?.fullTime?.home:m.score?.fullTime?.away,sa=isH?m.score?.fullTime?.away:m.score?.fullTime?.home; if(sf==null)return; gf+=sf;ga+=sa;if(sf>sa)w++;else if(sf===sa)d++;else l++; }); return{w,d,l,gf,ga}; }
+function stHTML(s,r){ return `<div class="data-stat"><span class="k">انتصارات</span><span class="v" style="color:var(--green)">${s.w}</span></div><div class="data-stat"><span class="k">تعادلات</span><span class="v" style="color:var(--gold)">${s.d}</span></div><div class="data-stat"><span class="k">خسائر</span><span class="v" style="color:var(--red)">${s.l}</span></div><div class="data-stat"><span class="k">أهداف سجّل</span><span class="v">${s.gf}</span></div><div class="data-stat"><span class="k">أهداف استقبل</span><span class="v">${s.ga}</span></div><div class="data-stat"><span class="k">تقييم الشكل</span><span class="v" style="color:var(--accent)">${r||'—'}/10</span></div>`; }
+async function fdGet(p){ const r=await fetch(FDBASE+p,{headers:{'X-Auth-Token':FDKEY}}); if(r.status===429)throw new Error('تجاوزت حد الطلبات — انتظر دقيقة'); if(r.status===403)throw new Error('هذا الدوري يحتاج خطة مدفوعة في football-data.org'); if(!r.ok)throw new Error('خطأ API: '+r.status); return r.json(); }
+function setArea(h){ document.getElementById('matchesArea').innerHTML=h; }
+function setStep(n){ [1,2,3].forEach(i=>document.getElementById('stp'+i).classList.toggle('active',i<=n)); }
+function showLoad(m){ document.getElementById('loading').classList.add('show'); document.getElementById('loadMsg').textContent=m; }
+function hideLoad(){ document.getElementById('loading').classList.remove('show'); }
+function showErr(m){ const e=document.getElementById('errBox'); e.textContent=m?'⚠️ '+m:''; e.classList.toggle('show',!!m); }
+function resetUI(){ document.getElementById('panelSearch').style.display='block'; }
+function resetAll(){ selMatch=null; document.getElementById('resultArea').classList.remove('show'); document.getElementById('panelSearch').style.display='block'; document.getElementById('selectedArea').style.display='none'; document.querySelectorAll('.match-item').forEach(e=>e.classList.remove('selected')); setStep(1); window.scrollTo({top:0,behavior:'smooth'}); }
+function getToday(){ return new Date().toISOString().split('T')[0]; }
+function addDays(s,n){ const d=new Date(s); d.setDate(d.getDate()+n); return d.toISOString().split('T')[0]; }
 </script>
 </body>
 </html>
